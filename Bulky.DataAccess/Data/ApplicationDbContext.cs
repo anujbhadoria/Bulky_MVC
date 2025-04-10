@@ -12,6 +12,8 @@ namespace Bulky.DataAccess.Data
 
         public DbSet<Category> Categories { get; set; }
 
+        public DbSet<Product> Products { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Category>().HasData(
@@ -19,6 +21,8 @@ namespace Bulky.DataAccess.Data
                     new Category { Id = 2, Name = "Sci-Fi", DisplayOrder = 2},
                     new Category { Id = 3, Name = "Horror", DisplayOrder = 3}
                 );
+
+            
         }
     }
 }

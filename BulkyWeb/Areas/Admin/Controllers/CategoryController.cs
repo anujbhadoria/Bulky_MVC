@@ -5,8 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 
-namespace BulkyWeb.Controllers
+namespace BulkyWeb.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -16,25 +17,25 @@ namespace BulkyWeb.Controllers
         }
         public IActionResult Index()
         {
-            var objCategoryList = _unitOfWork.Category.GetAll();   
+            var objCategoryList = _unitOfWork.Category.GetAll();
             return View(objCategoryList);
         }
 
         public IActionResult Edit(int? id)
         {
-            if(id == null || id == 0)
+            if (id == null || id == 0)
             {
                 return NotFound();
             }
             Category category = _unitOfWork.Category.Get(u => u.Id == id);
-            if(category is null)
+            if (category is null)
             {
                 return NotFound();
             }
             return View(category);
         }
 
-        [HttpPost] 
+        [HttpPost]
         public IActionResult Edit(Category obj)
         {
             if (ModelState.IsValid)
@@ -52,7 +53,7 @@ namespace BulkyWeb.Controllers
         }
 
         [HttpPost] //atttribute added to tell that its a post request
-        public IActionResult Create(Category obj) 
+        public IActionResult Create(Category obj)
         {
             if (ModelState.IsValid)
             {
@@ -78,11 +79,11 @@ namespace BulkyWeb.Controllers
             return View(category);
         }
 
-        [HttpPost,ActionName("Delete")] //atttribute added to tell that its a post request
+        [HttpPost, ActionName("Delete")] //atttribute added to tell that its a post request
         public IActionResult DeletePOST(int? id)
         {
             Category category = _unitOfWork.Category.Get(u => u.Id == id);
-            if(category is null)
+            if (category is null)
             {
                 return NotFound();
             }
